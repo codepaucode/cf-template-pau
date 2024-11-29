@@ -1,0 +1,26 @@
+Parameters:
+  LatestAmiId:
+    Description: "Latest Amazon Linux 2 AMI ID"
+    Type: 'AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>'
+    Default: '/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2'
+
+  SubnetId:
+    Description: "The Subnet ID where the instance will be launched"
+    Type: String
+
+  SecurityGroupId:
+    Description: "The Security Group ID to associate with the instance"
+    Type: String
+
+Resources:
+  Bucket:
+    Type: 'AWS::S3::Bucket'
+
+  Instance:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      InstanceType: "t2.micro"
+      ImageId: !Ref "LatestAmiId"
+      SubnetId: subnet-03d8f6c93e9bca852  # Replace <subnet-id> with your specific Subnet ID
+      SecurityGroupIds:      # Specify the security group IDs as a list
+        - sg-056d8552aeb782afa    
